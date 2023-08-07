@@ -4,6 +4,7 @@ from .serializers import UserProfileSerializer, UserPostSerializer
 from rest_framework.views import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import viewsets
 
 
 class AdminUsersView(APIView):
@@ -33,3 +34,13 @@ class RegisterView(APIView):
                 return Response({"detail" : "User Created", "user" : user.email}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class FeaturesViewSet(viewsets.ViewSet):
+    def list(self, request):
+        a_viewsets = [
+            'Uses actions (list, create, retrieve, update, partial_update)'
+            'Automatically maps to URLs using Routers'
+            'Provides more functionality with less code'
+        ]
+        return Response ({'features' : a_viewsets})
