@@ -52,3 +52,4 @@ class HelloViewSet(viewsets.ViewSet):
             'Hello!'
         ]
         return Response ({'message' : hello_viewset})
+    
