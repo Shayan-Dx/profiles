@@ -44,12 +44,3 @@ class FeaturesViewSet(viewsets.ViewSet):
             'Provides more functionality with less code'
         ]
         return Response ({'features' : a_viewsets})
-    
-
-class HelloViewSet(viewsets.ViewSet):
-    def list(self, request):
-        hello_viewset = [
-            'Hello!'
-        ]
-        return Response ({'message' : hello_viewset})
-    #feature
