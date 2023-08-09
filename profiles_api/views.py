@@ -7,17 +7,17 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 
 
-class AdminUsersView(APIView):
+class UsersView(APIView):
     def get(self, request):
-        users = UserProfile.objects.filter(is_staff=True, is_active=True)
+        users = UserProfile.objects.all()
         serializer = UserProfileSerializer(users, many=True, context={'request' : request})
         return Response (serializer.data)
     
-class NormalUsersView(APIView):
-    def get(self, request):
-        users = UserProfile.objects.filter(is_staff=False, is_active=True)
-        serializer = UserProfileSerializer(users, many=True, context={'request' : request})
-        return Response (serializer.data)
+# class NormalUsersView(APIView):
+#     def get(self, request):
+#         users = UserProfile.objects.filter(is_staff=False, is_active=True)
+#         serializer = UserProfileSerializer(users, many=True, context={'request' : request})
+#         return Response (serializer.data)
     
 class RegisterView(APIView):
     def post(self, request):
