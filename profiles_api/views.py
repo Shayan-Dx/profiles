@@ -31,6 +31,16 @@ class RegisterView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
+class SearchView(APIView):
+    def get(self, request, primary):
+        try:
+            user = UserProfile.objects.get(pk=primary)
+            serializer = UserProfileSerializer(user, context = {'request' : request})
+            return Response (serializer.data)
+        except UserProfile.DoesNotExist:
+            return Response({'detail' : 'There is no user with that user ID!'}, status=status.HTTP_404_NOT_FOUND)
+
+
 class FeaturesViewSet(viewsets.ViewSet):
     def list(self, request):
         a_viewsets = [
