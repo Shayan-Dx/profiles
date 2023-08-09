@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from .models import UserProfile
 from .serializers import UserProfileSerializer, UserPostSerializer
-from rest_framework.views import Response
+from rest_framework.views import Response, Request
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins, generics
 
 
 class UsersView(APIView):
@@ -12,6 +12,7 @@ class UsersView(APIView):
         users = UserProfile.objects.all()
         serializer = UserProfileSerializer(users, many=True, context={'request' : request})
         return Response (serializer.data)
+    
     def post(self, request):
         serializer = UserPostSerializer(data=request.data)
         if serializer.is_valid():
@@ -46,7 +47,7 @@ class DetailView(APIView):
 
 
 class FeaturesViewSet(viewsets.ViewSet):
-    def list(self, request):
+    def list(self, request:Request):
         a_viewsets = [
             'Uses actions (list, create, retrieve, update, partial_update)'
             'Automatically maps to URLs using Routers'
