@@ -20,11 +20,11 @@ from rest_framework.routers import DefaultRouter
 from profiles_api import views
 
 router = DefaultRouter()
-router.register('hello-viewset', views.FeaturesViewSet, base_name='hello-viewset')
+router.register('hello-viewset', views.FeaturesViewSet, basename='hello-viewset')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('profiles_api.urls')),
-    path('viewset-features/', views.FeaturesViewSet.as_view()),
+    path('viewset-features/', include(router.urls)),
 ]
