@@ -12,9 +12,6 @@ class UsersView(APIView):
         users = UserProfile.objects.all()
         serializer = UserProfileSerializer(users, many=True, context={'request' : request})
         return Response (serializer.data)
-    
-    
-class RegisterView(APIView):
     def post(self, request):
         serializer = UserPostSerializer(data=request.data)
         if serializer.is_valid():
