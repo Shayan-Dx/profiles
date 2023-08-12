@@ -7,6 +7,8 @@ from .permissions import UpdateOwnProfile
 from rest_framework.views import Response, Request, APIView
 from rest_framework import viewsets, mixins, generics, status
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings, DEFAULTS
 
 class UsersView(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -59,3 +61,7 @@ class FeaturesViewSet(viewsets.ViewSet):
             'Provides more functionality with less code'
         ]
         return Response ({'features' : a_viewsets})
+
+
+class UserLoginAPIView(ObtainAuthToken):
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES

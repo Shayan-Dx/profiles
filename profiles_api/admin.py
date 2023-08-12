@@ -5,4 +5,4 @@ from django.contrib.auth.admin import UserAdmin
 
 @admin.register(UserProfile)
 class UsersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'is_active', 'is_staff')
+    list_display = ('id', 'email', 'password', 'first_name', 'last_name', 'is_active', 'is_staff')
