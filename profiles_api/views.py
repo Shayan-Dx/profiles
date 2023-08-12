@@ -1,13 +1,16 @@
 from django.shortcuts import render
+
 from .models import UserProfile
 from .serializers import UserProfileSerializer, UserPostSerializer
-from rest_framework.views import Response, Request
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework import viewsets, mixins, generics
+from .permissions import UpdateOwnProfile
 
+from rest_framework.views import Response, Request, APIView
+from rest_framework import viewsets, mixins, generics, status
+from rest_framework.authentication import TokenAuthentication
 
 class UsersView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (UpdateOwnProfile,)
     def get(self, request):
         users = UserProfile.objects.all()
         serializer = UserProfileSerializer(users, many=True, context={'request' : request})
@@ -30,6 +33,8 @@ class UsersView(APIView):
         
 
 class DetailView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (UpdateOwnProfile,)
     def get(self, request, primary):
         try:
             user = UserProfile.objects.get(pk=primary)
